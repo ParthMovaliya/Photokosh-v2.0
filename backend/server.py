@@ -18,6 +18,7 @@ number_encodingList = []
 # cv2.resize()
 myList = os.listdir(PATH)
 
+# add images in images
 for cl in myList:
     # print(cl)
     currImg = cv2.imread(f'{PATH}/{cl}')
@@ -25,6 +26,7 @@ for cl in myList:
     # path_images.append()
     classNames.append(os.path.splitext(cl)[0])
 
+# function that retuen arry of face_recognition.face_encodings which we compare with user in future
 def findEncodings(images):
     encodeList = []
     for img in images:
@@ -43,6 +45,7 @@ def findEncodings(images):
 
 encodeList = findEncodings(images)
 
+# finding length of face detected in single image in encodeList
 for lists in encodeList:
     number_encodingList.append(len(lists))
 
@@ -50,6 +53,7 @@ for lists in encodeList:
 # print("encodeList",encodeList)
 print("Encoding Done")
 
+#route that take user image and comapre with all images and return detected images name for now
 @app.route('/capture', methods=['POST'])
 def findAllImages():
     paths = []
@@ -66,7 +70,7 @@ def findAllImages():
 
         with open(image_path, "wb") as f:
             f.write(image_data)
-        print("Image save")
+        # print("Image save")
 
         # Convert the binary data to a NumPy array
         nparr = np.frombuffer(image_data, np.uint8)
@@ -78,8 +82,9 @@ def findAllImages():
 
         user_face = face_recognition.face_locations(user_image)
         encode_user_face = face_recognition.face_encodings(user_image,user_face)
-        print("encode_user_face done")
+        # print("encode_user_face done")
 
+        # make zip of encode_user_face and user_face and then run other for loop which contain images encoding and compare with user image
         for encode_face,face_location in zip(encode_user_face,user_face):
             for lists in encodeList:
                 user_matches = face_recognition.compare_faces(lists,encode_face)
@@ -93,7 +98,8 @@ def findAllImages():
                 # print(myList[start])
                 paths.append(myList[start])
             start += 1
-        print(result)
+        # for seeing result of above zip function
+        # print(result)
             # if result:
             #     image_name = images[]
             #     success_image = os.path.join(PATH, image_name)
