@@ -1,9 +1,13 @@
 import React, { useRef } from 'react'
-import axios from "axios"
+import axios from "axios";
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const UploadImage = () => {
     // const [images, setImages] = useState(null);
     const inputRef = useRef(null);
+    const navigate = useNavigate();
+    const { data: userData, status } = useSelector((state) => state.user);
 
     const upImage = async (e) => {
         e.preventDefault();
@@ -50,7 +54,7 @@ const UploadImage = () => {
     //     imageFiles.append("file", files[i]);
     // }
     // console.log(imageFiles);
-    //make api call here -----------------------------------------------------
+    // make api call here -----------------------------------------------------
     // axios.post("/add_images", { imageFiles }).then(response => response.json()).then((data) => console.log(data));
     // fetch("/add_images", {
     //     method: "POST",
@@ -60,16 +64,21 @@ const UploadImage = () => {
     //     .then((data) => console.log(data))
     //     .catch((error) => console.error("Error:", error));
     // }
-    return (
-        <div>
-            <input
-                ref={inputRef}
-                type='file' multiple accept='image/*' name='images' />
-            <button
-                onClick={(e) => upImage(e)}
-            >Submit</button>
-        </div>
-    )
+
+    if (userData.user?.role !== "photographer") {
+        navigate("/");
+    } else {
+        return (
+            <div>
+                <input
+                    ref={inputRef}
+                    type='file' multiple accept='image/*' name='images' />
+                <button
+                    onClick={(e) => upImage(e)}
+                >Submit</button>
+            </div>
+        )
+    }
 }
 
 export default UploadImage

@@ -36,11 +36,14 @@ export function getUserDetails(email, password) {
         try {
             const response = await axios.post("/api/v1/login", { email, password });
             const requireData = {
-                name: response.data.user.name,
-                email: response.data.user.email,
                 isAuthenticated: true,
                 message: "",
-                image: response.data.user.avatar.url,
+                user: {
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    role: response.data.user.role,
+                    image: response.data.user.avatar.url,
+                }
             }
             dispatch(loginUser(requireData));
             dispatch(setStatus(STATUSES.IDLE));
@@ -58,11 +61,14 @@ export function defaultUserLogin() {
         try {
             const response = await axios.get("/api/v1/me");
             const requireData = {
-                name: response.data.user.name,
-                email: response.data.user.email,
                 isAuthenticated: true,
                 message: "",
-                image: response.data.user.avatar.url,
+                user: {
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    role: response.data.user.role,
+                    image: response.data.user.avatar.url,
+                }
             }
             dispatch(loginUser(requireData));
             // console.log(response.data)
@@ -82,9 +88,7 @@ export function logoutLoginUser() {
             dispatch(loginUser({
                 isAuthenticated: false,
                 message: "",
-                name: "",
-                email: "",
-                image: "",
+                user: {}
             }));
         } catch (error) {
             console.log(error)
@@ -101,11 +105,14 @@ export function registerUser(name, email, password, avatar, user_image) {
             const response = await axios.post("/api/v1/register", { name, email, password, user_image });
             console.log(response.data);
             const requireData = {
-                name: response.data.user.name,
-                email: response.data.user.email,
                 isAuthenticated: true,
                 message: "",
-                image: response.data.user.avatar.url,
+                user: {
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    role: response.data.user.role,
+                    image: response.data.user.avatar.url,
+                }
             }
             dispatch(loginUser(requireData));
             dispatch(setStatus(STATUSES.IDLE));
@@ -133,6 +140,7 @@ export function resetUserPassword(email) {
     }
 }
 
+//set New Password
 export function setNewPAssword(token, password, confirmPassword) {
     return async function setNewPAsswordThunk(dispatch, getState) {
         dispatch(setStatus(STATUSES.LOADING));
@@ -140,11 +148,14 @@ export function setNewPAssword(token, password, confirmPassword) {
             const response = await axios.put(`/api/v1/password/reset/${token}`, { password, confirmPassword });
             // console.log(response)
             const requireData = {
-                name: response.data.user.name,
-                email: response.data.user.email,
                 isAuthenticated: true,
                 message: "",
-                image: response.data.user.avatar.url,
+                user: {
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    role: response.data.user.role,
+                    image: response.data.user.avatar.url,
+                }
             };
             dispatch(loginUser(requireData));
             dispatch(setStatus(STATUSES.IDLE));
@@ -154,3 +165,4 @@ export function setNewPAssword(token, password, confirmPassword) {
         }
     }
 }
+
