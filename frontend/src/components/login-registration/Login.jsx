@@ -61,7 +61,7 @@ const Login = () => {
                     <hr className='flex flex-grow border border-t-neutral-300' />
                 </div>
                 <div className="flex justify-center items-center gap-4 mt-2">
-                    <p>New to Clone?</p>
+                    <p>New to Photokosh?</p>
                     <button className='text-blue-600 underline' onClick={() => navigate("/register")}>Create an account.</button>
                 </div>
             </div>

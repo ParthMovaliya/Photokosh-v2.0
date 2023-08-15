@@ -142,7 +142,7 @@ const Register = () => {
                     <hr className='flex flex-grow border border-t-neutral-300' />
                 </div>
                 <div className="flex justify-center items-center gap-4 mt-2">
-                    <p>Already using  Clone?</p>
+                    <p>Already using  Photokosh?</p>
                     <button className='text-blue-600 underline' onClick={() => navigate("/login")}>Log in.</button>
                 </div>
                 {/* {
