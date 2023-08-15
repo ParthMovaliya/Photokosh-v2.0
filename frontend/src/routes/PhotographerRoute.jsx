@@ -10,6 +10,7 @@ import Images from '../components/user/Images'
 import Profile from '../components/profile/Profile'
 import Error from '../components/error/Error'
 import Navbar from '../components/navbar/Navbar'
+import Footer from '../components/footer/Footer'
 
 const PhotographerRoute = () => {
     return (
@@ -28,6 +29,7 @@ const PhotographerRoute = () => {
                     <Route path='*' element={<Error />} />
                 </Routes>
             </div>
+            <Footer />
         </BrowserRouter>
     )
 }

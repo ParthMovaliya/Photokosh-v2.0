@@ -21,7 +21,7 @@ const Navbar = () => {
     // ------------------------------------------------------------------------
     if (!userData.isAuthenticated) {
         return (
-            <nav className="bg-white px-12 sm:px-16 md:px-20 lg:px-24 py-4 border border-b-neutral-300">
+            <nav className="bg-white mb-8 px-12 sm:px-16 md:px-20 lg:px-24 py-4 border border-b-neutral-300">
                 <div className="hidden sm:flex justify-between items-center">
                     <Link className="text-2xl font-bold" to='/'>Photokosh</Link>
                     <div className="flex gap-4">
@@ -48,7 +48,7 @@ const Navbar = () => {
     if (userData.isAuthenticated) {
         if (userData.user.role === 'user') {
             return (
-                <nav className="bg-white px-12 sm:px-16 md:px-20 lg:px-24 py-4 border border-b-neutral-300">
+                <nav className="bg-white mb-8 px-12 sm:px-16 md:px-20 lg:px-24 py-4 border border-b-neutral-300">
                     <div className="hidden sm:flex justify-between items-center">
                         <Link className="text-2xl font-bold" to='/'>Photokosh</Link>
                         <div className="flex gap-4 items-center">
@@ -74,7 +74,7 @@ const Navbar = () => {
         }
         if (userData.user.role === 'photographer') {
             return (
-                <nav className="bg-white px-12 sm:px-16 md:px-20 lg:px-24 py-4 border border-b-neutral-300">
+                <nav className="bg-white mb-8 px-12 sm:px-16 md:px-20 lg:px-24 py-4 border border-b-neutral-300">
                     <div className="hidden sm:flex justify-between items-center">
                         <Link className="text-2xl font-bold" to='/'>Photokosh</Link>
                         <div className="flex gap-4 items-center">

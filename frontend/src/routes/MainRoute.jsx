@@ -11,6 +11,7 @@ import AdminRoute from './AdminRoute';
 import Navbar from '../components/navbar/Navbar';
 import ResetPassword from '../components/login-registration/ResetPassword';
 import ForgetPassword from '../components/login-registration/ForgetPassword';
+import Footer from '../components/footer/Footer';
 
 const MainRoute = () => {
     const { data: userData, status } = useSelector((state) => state.user);
@@ -29,6 +30,7 @@ const MainRoute = () => {
                         <Route path='*' element={<Error />} />
                     </Routes>
                 </div>
+                <Footer />
             </BrowserRouter>
         )
     } else {
