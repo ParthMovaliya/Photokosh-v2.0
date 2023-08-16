@@ -3,12 +3,13 @@ import { STATUSES, getUserDetails, setStatus } from '../../store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import PopUp from '../../utils/PopUp';
 import Loading from '../../utils/Loading';
+import { useAlert } from 'react-alert';
 
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const alert = useAlert();
     const [showPassword, setShowPassword] = useState(false)
     // eslint-disable-next-line no-unused-vars
     const { data: userData, status } = useSelector((state) => state.user);
@@ -20,19 +21,20 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if (userData.isAuthenticated) {
+        // console.log("change", userData.isAuthenticated, status)
+        if (userData.isAuthenticated || (status === STATUSES.LOADING && userData.isAuthenticated)) {
             navigate("/");
         }
-        if (status !== STATUSES.IDLE)
-            dispatch(setStatus(STATUSES.IDLE))
-        // first = !first
-    }, [userData]);
+        if (status === STATUSES.ERROR)
+            alert.show(userData.message);
+    }, [status, userData]);
 
     if (status === STATUSES.LOADING) {
         return (
             <Loading />
         )
     }
+
     return (
         <div className='flex justify-center items-center min-h-[80vh] '>
             <div className="border border-neutral-300 bg-white rounded-lg p-8 sm:w-9/12 md:w-6/12 lg:w-5/12">
@@ -66,7 +68,7 @@ const Login = () => {
                 </div>
             </div>
             {
-                status === STATUSES.ERROR && <PopUp message={userData.message} success={false} />
+                status === STATUSES.ERROR && <></>
             }
         </div>
     )

@@ -12,6 +12,7 @@ import Navbar from '../components/navbar/Navbar';
 import ResetPassword from '../components/login-registration/ResetPassword';
 import ForgetPassword from '../components/login-registration/ForgetPassword';
 import Footer from '../components/footer/Footer';
+import BecomePhotographer from '../components/photographer/BecomePhotographer';
 
 const MainRoute = () => {
     const { data: userData, status } = useSelector((state) => state.user);
@@ -26,6 +27,7 @@ const MainRoute = () => {
                         <Route path='/login' element={<Login />} />
                         <Route path='/registration' element={<Register />} />
                         <Route path='/password/reset/:token' element={<ResetPassword />} />
+                        <Route path='/become-photographer' element={<BecomePhotographer />} />
                         <Route path='/password/forgot' element={<ForgetPassword />} />
                         <Route path='*' element={<Error />} />
                     </Routes>

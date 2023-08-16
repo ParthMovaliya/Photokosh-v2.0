@@ -11,6 +11,8 @@ import Profile from '../components/profile/Profile'
 import Error from '../components/error/Error'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
+import Contact from '../components/contact/Contact'
+import BecomePhotographer from '../components/photographer/BecomePhotographer'
 
 const AdminRoute = () => {
     return (
@@ -22,6 +24,8 @@ const AdminRoute = () => {
                     {/* <Route path='/login' element={<Login />} />
                     <Route path='/registration' element={<Register />} /> */}
                     <Route path='/uploadimage' element={<UploadImage />} />
+                    <Route path='/become-photographer' element={<BecomePhotographer />} />
+                    <Route path='/contact' element={<Contact />} />
                     <Route path='/password/reset/:token' element={<ResetPassword />} />
                     <Route path='/password/forgot' element={<ForgetPassword />} />
                     <Route path='/images' element={<Images />} />

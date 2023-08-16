@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { STATUSES, registerUser, setStatus } from '../../store/userSlice';
-import { types, useAlert } from 'react-alert'
+import { useAlert } from 'react-alert'
 import Loading from "../../utils/Loading";
 import Webcam from 'react-webcam';
 
@@ -20,12 +20,12 @@ const Register = () => {
     const [avatar, setAvatar] = useState("");
 
     useEffect(() => {
-        if (userData.isAuthenticated) {
+        if (userData.isAuthenticated || (status === STATUSES.LOADING && userData.isAuthenticated)) {
             navigate("/");
         }
         if (status !== STATUSES.IDLE)
             dispatch(setStatus(STATUSES.IDLE));
-    }, [userData]);
+    }, [userData, status]);
 
     const captureUser = async () => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -39,7 +39,6 @@ const Register = () => {
             reader.onload = () => {
                 setAvatarPreview(reader.result);
                 setAvatar(reader.result);
-                // }
             };
             reader.readAsDataURL(e.target.files[0]);
         }
@@ -145,9 +144,6 @@ const Register = () => {
                     <p>Already using  Photokosh?</p>
                     <button className='text-blue-600 underline' onClick={() => navigate("/login")}>Log in.</button>
                 </div>
-                {/* {
-                status === STATUSES.ERROR && <PopUp message={userData.message.includes("E11000 duplicate key error collection:") ? "Email is already taken" : userData.message} success={false} />
-            } */}
             </div>
         </div>
     )

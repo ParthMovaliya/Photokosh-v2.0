@@ -11,6 +11,8 @@ import Profile from '../components/profile/Profile'
 import Error from '../components/error/Error'
 import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
+import Contact from '../components/contact/Contact'
+import BecomePhotographer from '../components/photographer/BecomePhotographer'
 
 const UserRoute = () => {
     return (
@@ -19,12 +21,14 @@ const UserRoute = () => {
             <div className='px-12 sm:px-16 md:px-20 lg:px-24'>
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    {/* <Route path='/login' element={<Login />} />
+                    <Route path='/login' element={<Login />} />
                     <Route path='/registration' element={<Register />} />
-                    <Route path='/uploadimage' element={<UploadImage />} /> */}
+                    <Route path='/become-photographer' element={<BecomePhotographer />} />
+                    {/* <Route path='/uploadimage' element={<UploadImage />} /> */}
                     <Route path='/password/reset/:token' element={<ResetPassword />} />
                     <Route path='/password/forgot' element={<ForgetPassword />} />
                     <Route path='/images' element={<Images />} />
+                    <Route path='/contact' element={<Contact />} />
                     <Route path='/me' element={<Profile />} />
                     <Route path='*' element={<Error />} />
                 </Routes>
