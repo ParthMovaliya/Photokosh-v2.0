@@ -16,8 +16,10 @@ app.use(fileupload());
 
 //Route import
 const user = require("./routes/userRoute");
+const admin = require("./routes/adminRoute");
 
 app.use("/api/v1", user);
+app.use("/api/v1", admin);
 
 app.use(errorMiddleware);
 

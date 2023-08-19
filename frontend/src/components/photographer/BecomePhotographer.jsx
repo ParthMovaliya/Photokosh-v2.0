@@ -1,8 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAlert } from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendVerificationUser } from '../../store/adminSlice';
 
 const BecomePhotographer = () => {
+    const alert = useAlert();
+    const dispatch = useDispatch();
+    const { data: userData, status } = useSelector((state) => state.user);
+    const [sName, setSName] = useState("");
+    const [sAdd, setSAdd] = useState("");
+    const [number, setNmber] = useState();
+
+    // useEffect(() => {
+    //     if (!userData.isAuthenticated) {
+    //         alert.show("Please Login before Apply!!");
+    //     }
+    // }, []);
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        if (!userData.isAuthenticated) {
+            alert.show("Please Login before Apply!!");
+        } else if (number.length !== 10) {
+            alert.show("Mobile number should be 10 legth long");
+        } else {
+            // console.log(userData.user.name, userData.user.email, sName, sAdd, number)
+            dispatch(sendVerificationUser(userData.user.name, userData.user.email, sName, sAdd, number));
+        }
+    }
+
     return (
-        <div>BecomePhotographer</div>
+        <div className="flex justify-center items-center">
+            <div className=' w-2/6 border border-neutral-300 py-4 px-8 rounded-lg bg-white'>
+                <form onSubmit={submitForm} className='flex flex-col w-full gap-6'>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="sname">Shop Name</label>
+                        <input onChange={(e) => setSName(e.target.value)} required className='border border-b-neutral-300 rounded py-2 px-4' type="text" name="shop_name" id="sname" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="saddress">Shop Address</label>
+                        <textarea onChange={(e) => setSAdd(e.target.value)} required className='border border-b-neutral-300 rounded py-2 px-4' name="shop_address" id="saddress" cols="30" rows="6"></textarea>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="mobilenumber">Mobile Number</label>
+                        <input onChange={(e) => setNmber(e.target.value)} required className='border border-b-neutral-300 rounded py-2 px-4' type="number" name="mobile_number" id="mobilenumber" />
+                    </div>
+                    <button type="submit" className='border border-neutral-300 rounded-md bg-neutral-50 py-2'>Submit</button>
+                </form>
+            </div>
+        </div>
     )
 }
 

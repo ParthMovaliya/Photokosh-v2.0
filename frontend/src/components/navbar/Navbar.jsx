@@ -4,6 +4,7 @@ import { defaultUserLogin } from '../../store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from "react-icons/ai"
 import LogoutNavbar from './LogoutNavbar';
+import AdminNavbar from './AdminNavbar';
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -98,6 +99,11 @@ const Navbar = () => {
                         <Link to='/me'>About</Link>
                     </div>
                 </nav>
+            )
+        }
+        if (userData.user.role === 'admin') {
+            return (
+                <AdminNavbar />
             )
         }
     }

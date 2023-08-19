@@ -13,6 +13,7 @@ import Navbar from '../components/navbar/Navbar'
 import Footer from '../components/footer/Footer'
 import Contact from '../components/contact/Contact'
 import BecomePhotographer from '../components/photographer/BecomePhotographer'
+import PhotographerVerification from '../components/verification/PhotographerVerification'
 
 const AdminRoute = () => {
     return (
@@ -21,8 +22,9 @@ const AdminRoute = () => {
             <div className='px-12 sm:px-16 md:px-20 lg:px-24'>
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    {/* <Route path='/login' element={<Login />} />
-                    <Route path='/registration' element={<Register />} /> */}
+                    <Route path='/photographer-verification' element={<PhotographerVerification />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/registration' element={<Register />} />
                     <Route path='/uploadimage' element={<UploadImage />} />
                     <Route path='/become-photographer' element={<BecomePhotographer />} />
                     <Route path='/contact' element={<Contact />} />
