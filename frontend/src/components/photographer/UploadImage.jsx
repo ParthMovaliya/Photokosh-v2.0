@@ -84,7 +84,7 @@ const UploadImage = () => {
 
             reader.onload = async () => {
                 // imageFiles.append('file', file);
-                imageFiles.append(selectedFiles[i], reader.result);
+                imageFiles.append(selectedFiles[i], reader.result.split(',')[1]);
                 let img = reader.result;
                 imagesArray.push(img); // Push image data to the array
                 if (i === files.length - 1) {
