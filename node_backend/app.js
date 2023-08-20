@@ -11,15 +11,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: '1024kb' }));
+app.use(bodyParser.json({ limit: '16mb' }));
 app.use(fileupload());
 
 //Route import
 const user = require("./routes/userRoute");
 const admin = require("./routes/adminRoute");
+const photographer = require("./routes/photographerRoute");
 
 app.use("/api/v1", user);
 app.use("/api/v1", admin);
+app.use("/api/v1", photographer);
 
 app.use(errorMiddleware);
 

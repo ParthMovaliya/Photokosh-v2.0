@@ -103,7 +103,6 @@ export function registerUser(name, email, password, avatar, user_image) {
         try {
             // console.log("to back");
             const response = await axios.post("/api/v1/register", { name, email, password, user_image });
-            console.log(response.data);
             const requireData = {
                 isAuthenticated: true,
                 message: "",

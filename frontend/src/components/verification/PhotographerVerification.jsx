@@ -1,17 +1,41 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getVerificationUser, verifyPhotographer } from '../../store/adminSlice';
+import { STATUSES } from '../../store/userSlice';
+import Loading from '../../utils/Loading';
+import { Link } from 'react-router-dom';
 
 const PhotographerVerification = () => {
     const [vData, setVData] = useState(null);
     const { data: verificationData, status } = useSelector((state) => state.admin);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setVData(Object.values(verificationData));
         // console.log(Object.values(verificationData))
     }, [verificationData, status]);
 
-    const verifyPhotographer = (details) => {
-        console.log(details)
+    const verifyPhotographerfunc = (e, name, email) => {
+        e.preventDefault();
+        dispatch(verifyPhotographer(name, email));
+        dispatch(getVerificationUser());
+    }
+
+    if (status === STATUSES.LOADING) {
+        return (
+            <Loading />
+        )
+    }
+
+    if (Object.keys(verificationData).length === 0) {
+        return (
+            <>
+                <div className='flex gap-4 flex-col justify-center items-center min-h-[71vh]'>
+                    <b className='text-lg'>Threr is no current verification request</b>
+                    <Link to='/' className='border border-neutral-300 py-2 px-4 rounded-md bg-white'>Home</Link>
+                </div>
+            </>
+        )
     }
 
     return (
@@ -34,7 +58,7 @@ const PhotographerVerification = () => {
                         <div className="flex gap-2">Mobile Number:
                             <div className="bg-yellow-200 px-1">{verification.mobileNumber}</div>
                         </div>
-                        <button className='bg-green-400 py-1 rounded mt-3 text-white' onClick={() => verifyPhotographer(verification)}>Authenticate</button>
+                        <button className='bg-green-500 py-1 rounded mt-3 text-white hover:bg-green-600 duration-300' onClick={(e) => verifyPhotographerfunc(e, verification.name, verification.email)}>Authenticate</button>
                     </div>
                 ))
             }

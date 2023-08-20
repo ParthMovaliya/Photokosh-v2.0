@@ -11,7 +11,10 @@ const AddImageIcon = () => {
     }
 
     return (
-        <div className='text-2xl border border-neutral-600 p-3 bg-white rounded-full absolute bottom-8 right-8' onClick={() => { navigate("/uploadimage") }}>
+        <div
+            className='text-2xl border border-neutral-600 p-3 bg-white rounded-full fixed bottom-8 right-8 hover:shadow-lg duration-300 cursor-pointer hover:bg-green-500 hover:border-white hover:text-white'
+            // className='fixed bottom-0 right-0 m-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded shadow'
+            onClick={() => { navigate("/uploadimage") }}>
             <LuImagePlus />
         </div>
     )

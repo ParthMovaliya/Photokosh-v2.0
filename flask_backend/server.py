@@ -48,6 +48,7 @@ print("Encoding Done")
 # taking all input images
 @app.route('/add_images', methods=['POST'])
 def addAllImages():
+    return request
     files = request.files.getlist("file")  # Retrieve uploaded files
     base64_data = request.form.getlist("base64")
     saved_filenames = []

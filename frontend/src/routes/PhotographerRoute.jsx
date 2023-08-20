@@ -18,13 +18,13 @@ const PhotographerRoute = () => {
     return (
         <BrowserRouter>
             <Navbar />
-            <div className='px-12 sm:px-16 md:px-20 lg:px-24'>
+            <div className='px-12 sm:px-16 md:px-20 lg:px-24 min-h-[71vh]'>
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/contact' element={<Contact />} />
                     <Route path='/become-photographer' element={<BecomePhotographer />} />
-                    {/* <Route path='/login' element={<Login />} />
-                    <Route path='/registration' element={<Register />} /> */}
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/registration' element={<Register />} />
                     <Route path='/uploadimage' element={<UploadImage />} />
                     <Route path='/password/reset/:token' element={<ResetPassword />} />
                     <Route path='/password/forgot' element={<ForgetPassword />} />

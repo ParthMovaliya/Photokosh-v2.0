@@ -28,7 +28,7 @@ const AdminNavbar = () => {
                 <Link className="text-2xl font-bold flex gap-2 items-center" to='/'><GrUserAdmin /> Photokosh</Link>
                 <div className="flex gap-4 items-center">
                     <Link to='/images'>Images</Link>
-                    <Link to='/uploadimage'>Upload-Image</Link>
+                    {/* <Link to='/uploadimage'>Upload-Image</Link> */}
                     <Link to='/photographer-verification'>
                         <div className="relative text-xl border border-neutral-300 p-1 rounded-full">
                             {
@@ -53,7 +53,7 @@ const AdminNavbar = () => {
             <div className={`${menuActive ? "relative flex flex-col duration-100 translate-y-0" : "absolute -translate-y-96"}`}>
                 <hr className='border border-t-neutral-300 flex-grow mt-2' />
                 <Link to='/images'>Images</Link>
-                <Link to='/uploadimage'>Upload Image</Link>
+                {/* <Link to='/uploadimage'>Upload Image</Link> */}
                 <Link to='/photographer-verification' className='relative'>
                     {
                         verificationCount > 0 ?

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from "react-icons/ai"
 import LogoutNavbar from './LogoutNavbar';
 import AdminNavbar from './AdminNavbar';
+import AddImageIcon from '../../utils/AddImageIcon';
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -80,7 +81,7 @@ const Navbar = () => {
                         <Link className="text-2xl font-bold" to='/'>Photokosh</Link>
                         <div className="flex gap-4 items-center">
                             <Link to='/images'>Images</Link>
-                            <Link to='/uploadimage'>Upload-Image</Link>
+                            {/* <Link to='/uploadimage'>Upload-Image</Link> */}
                             <Link to='/me' >
                                 <img src={userData.user.image} className='rounded-full w-12 aspect-square object-cover' alt='my_image' />
                             </Link>
@@ -95,9 +96,10 @@ const Navbar = () => {
                     <div className={`${menuActive ? "relative flex flex-col duration-100 translate-y-0" : "absolute -translate-y-96"}`}>
                         <hr className='border border-t-neutral-300 flex-grow mt-2' />
                         <Link to='/images'>Images</Link>
-                        <Link to='/uploadimage'>Upload-Image</Link>
+                        {/* <Link to='/uploadimage'>Upload-Image</Link> */}
                         <Link to='/me'>About</Link>
                     </div>
+                    <AddImageIcon />
                 </nav>
             )
         }

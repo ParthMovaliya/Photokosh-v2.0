@@ -18,7 +18,7 @@ const UserRoute = () => {
     return (
         <BrowserRouter>
             <Navbar />
-            <div className='px-12 sm:px-16 md:px-20 lg:px-24'>
+            <div className='px-12 sm:px-16 md:px-20 lg:px-24 min-h-[71vh]'>
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/login' element={<Login />} />

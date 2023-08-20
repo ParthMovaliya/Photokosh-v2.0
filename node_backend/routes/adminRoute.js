@@ -8,6 +8,6 @@ router.route("/getall-photographer").get(isAuthenticatedUser, getAllPhotographer
 
 router.route("/register-photographer").post(isAuthenticatedUser, registerPhotographer);
 
-router.route("/verify-photographer").post(isAuthenticatedUser, verifyPhotographer);
+router.route("/verify-photographer").put(isAuthenticatedUser, verifyPhotographer);
 
 module.exports = router;

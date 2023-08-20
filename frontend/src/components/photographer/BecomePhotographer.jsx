@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendVerificationUser } from '../../store/adminSlice';
+import { Link } from "react-router-dom"
 
 const BecomePhotographer = () => {
     const alert = useAlert();
@@ -27,6 +28,27 @@ const BecomePhotographer = () => {
             // console.log(userData.user.name, userData.user.email, sName, sAdd, number)
             dispatch(sendVerificationUser(userData.user.name, userData.user.email, sName, sAdd, number));
         }
+    }
+
+    if (userData.user.role === 'admin') {
+        return (
+            <>
+                <div className='flex gap-4 flex-col justify-center items-center min-h-[71vh]'>
+                    <b className='text-lg'>Admin can't apply</b>
+                    <Link to='/' className='border border-neutral-300 py-2 px-4 rounded-md bg-white'>Home</Link>
+                </div>
+            </>
+        )
+    }
+    if (userData.user.role === 'photographer') {
+        return (
+            <>
+                <div className='flex gap-4 flex-col justify-center items-center min-h-[71vh]'>
+                    <b className='text-lg'>You are Already a photographer</b>
+                    <Link to='/' className='border border-neutral-300 py-2 px-4 rounded-md bg-white'>Home</Link>
+                </div>
+            </>
+        )
     }
 
     return (

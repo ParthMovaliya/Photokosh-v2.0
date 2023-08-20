@@ -21,6 +21,7 @@ const adminSlice = createSlice({
 export const { verificationUser, setStatus } = adminSlice.actions;
 export default adminSlice.reducer;
 
+//get all verification request
 export function getVerificationUser() {
     return async function getVerificationUserThunk(dispatch, getState) {
         dispatch(setStatus(STATUSES.LOADING));
@@ -35,6 +36,7 @@ export function getVerificationUser() {
     }
 }
 
+//apply for verification
 export function sendVerificationUser(name, email, shopName, shopAddress, mobileNumber) {
     return async function sendVerificationUserThunk(dispatch, getState) {
         dispatch(setStatus(STATUSES.LOADING));
@@ -49,11 +51,20 @@ export function sendVerificationUser(name, email, shopName, shopAddress, mobileN
     }
 }
 
+//verify photographer by admin
 export function verifyPhotographer(name, email) {
     return async function verifyPhotographerThunk(dispatch, getState) {
         dispatch(setStatus(STATUSES.LOADING));
         try {
-            const response = await axios.put("/api/v1/verify-photographer", { name, email });
+            // console.log(name, email)
+            try {
+                const response = await axios.put("/api/v1/verify-photographer", { name, email });
+                dispatch(setStatus(STATUSES.LOADING));
+                // console.log(response.data)
+            } catch (error) {
+                console.log(error.response)
+                dispatch(setStatus(STATUSES.ERROR));
+            }
         } catch (error) {
 
         }
