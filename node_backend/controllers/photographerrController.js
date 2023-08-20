@@ -35,13 +35,21 @@ exports.verifyPhotographer = catchAsyncError(async (req, res, next) => {
 
 exports.uploadImagesByPhotographer = catchAsyncError(async (req, res, next) => {
     const images = req.body;
-    // console.log(images)
-    // images.map((image) => (
-    //     console.log(image)
-    // ))
-    // const imageFiles = req.files.map(file => file.buffer.toString('base64'));
-    // console.log(images);
+
     axios.post("http://127.0.0.1:5000/add_images", images)
-        .then(response => console.log("-------------------------------------------------------", response.data))
-        .catch(err => console.log(err))
+        .then(response => {
+            // console.log(response.data);  // Optional: Log the response data
+            res.status(200).json({
+                success: true,
+                message: "Image uploaded successfully"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(200).json({
+                success: false,
+                message: "Error while uploading image"
+            });
+        });
+
 });
