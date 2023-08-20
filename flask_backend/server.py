@@ -11,8 +11,9 @@ from utils.findEncodings import findEncodingsFunction
 
 app = Flask(__name__)
 CORS(app)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-IMAGES_PATH = 'F:\\7th_3\\backend\\photos\\'
+IMAGES_PATH = 'F:\\7th_3\\flask_backend\\photos\\'
 PATH = "parth"
 images = []
 path_images = []
@@ -66,18 +67,22 @@ def addAllImages():
 #route that take user image and comapre with all images and return detected images name for now
 @app.route('/capture', methods=['POST'])
 def findAllImages():
+    print("------------------------------------------------");
     paths = []
     result = []
     try:
         # Get the Base64 encoded image from the request
-        base64_image = request.form.get("image")
-        image_filename = "your_image_name.jpg"
-        image_data = base64.b64decode(base64_image.split(",")[1])
-        image_path = os.path.join(IMAGES_PATH, image_filename)
+        image_data = request.data
+        print(image_data)
+        # return base64_image
+        # base64_image = request.form.get("image")
+        # image_filename = "your_image_name.jpg"
+        # image_data = base64.b64decode(base64_image.split(",")[1])
+        # image_path = os.path.join(IMAGES_PATH, image_filename)
         
-        with open(image_path, "wb") as f:
-            f.write(image_data)
-        # print("Image save")
+        # with open(image_path, "wb") as f:
+        #     f.write(image_data)
+        # # print("Image save")
 
         # Convert the binary data to a NumPy array
         nparr = np.frombuffer(image_data, np.uint8)
@@ -97,12 +102,9 @@ def findAllImages():
                 # print(user_face_distance)
                 result.append(face_recognition.compare_faces(lists,encode_face))
 
-        start = 0
-        for success in result:
+        for idx, success in enumerate(result):
             if True in success:
-                # print(myList[start])
-                paths.append(myList[start])
-            start += 1
+                paths.append(myList[idx])
         # for seeing result of above zip function
         # print(result)
             # if result:
@@ -110,9 +112,12 @@ def findAllImages():
             #     success_image = os.path.join(PATH, image_name)
             #     paths.append(PATH)
         ans = jsonify({"Images":paths})
+        print(ans)
+        print("---------------------------------------------------")
         return ans
 
     except Exception as e:
+        print("------------------------------------------------")
         print(str(e))
         return f"Error: {str(e)}"
 

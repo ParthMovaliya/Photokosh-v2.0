@@ -5,6 +5,7 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
+const axios = require("axios");
 
 //register user
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -14,6 +15,11 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         crop: "scale"
     });
     const { name, email, password, user_image } = req.body;
+    const new_user_image = user_image.split(",");
+    const imageBuffer = Buffer.from(new_user_image[1], 'base64');
+    axios.post("http://127.0.0.1:5000/capture", { imageBuffer })
+        .then(response => console.log(response.data))
+        .catch(err => console.log(err))
     const user = await User.create({
         name,
         email,
