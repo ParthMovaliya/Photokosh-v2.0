@@ -61,6 +61,8 @@ def addAllImages():
         with open(save_path, 'wb') as f:
             f.write(image_data)
 
+        # add image scan function here
+
         saved_filenames.append(filename)
 
     ans = jsonify({"Saved Images": saved_filenames})
@@ -79,6 +81,8 @@ def findAllImages():
             image_encoded = files.get(filename)
             image_data = base64.b64decode(image_encoded)
             save_path = os.path.join(IMAGES_PATH, 'user.jpg')
+
+            # add user image scan here and also see below comment code from line 93 - 119
 
             # below code save image -- you can check
             # with open(save_path, 'wb') as f:
