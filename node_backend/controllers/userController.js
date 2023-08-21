@@ -16,13 +16,8 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     });
     const { name, email, password, user_image } = req.body;
     const new_user_image = user_image.split(",")[1];
-    console.log(new_user_image)
-    const new_image = {
-        user: new_user_image
-    }
-    // console.log(new_image);
     try {
-        const response = await axios.post("http://127.0.0.1:5000/capture", { new_image })
+        const response = await axios.post("http://127.0.0.1:5000/capture", { new_user_image })
         console.log(response.data)
     } catch (error) {
         console.log(error.response)

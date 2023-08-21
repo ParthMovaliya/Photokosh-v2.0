@@ -73,39 +73,40 @@ def findAllImages():
     result = []
     try:
         # Get the Base64 encoded image from the request
-        image_data = request.get_json()
-        print(image_data)
+        files = request.get_json()
         # return base64_image
-        # base64_image = request.form.get("image")
-        # image_filename = "your_image_name.jpg"
-        # image_data = base64.b64decode(base64_image.split(",")[1])
-        # image_path = os.path.join(IMAGES_PATH, image_filename)
-        
-        # with open(image_path, "wb") as f:
-        #     f.write(image_data)
-        # # print("Image save")
+        for filename in files:
+            image_encoded = files.get(filename)
+            image_data = base64.b64decode(image_encoded)
+            save_path = os.path.join(IMAGES_PATH, 'user.jpg')
 
-        # Convert the binary data to a NumPy array
-        nparr = np.frombuffer(image_data, np.uint8)
+            # below code save image -- you can check
+            # with open(save_path, 'wb') as f:
+            #     f.write(image_data)
         
-        # Decode the NumPy array to an OpenCV image
-        image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        user_image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-        user_face = face_recognition.face_locations(user_image)
-        encode_user_face = face_recognition.face_encodings(user_image,user_face)
-        print("encode_user_face done")
+        print("Image save")
+
+        # # Convert the binary data to a NumPy array
+        # nparr = np.frombuffer(image_data, np.uint8)
+        
+        # # Decode the NumPy array to an OpenCV image
+        # image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        # user_image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+        # user_face = face_recognition.face_locations(user_image)
+        # encode_user_face = face_recognition.face_encodings(user_image,user_face)
+        # print("encode_user_face done")
 
         # make zip of encode_user_face and user_face and then run other for loop which contain images encoding and compare with user image
-        for encode_face,face_location in zip(encode_user_face,user_face):
-            for lists in encodeList:
-                user_matches = face_recognition.compare_faces(lists,encode_face)
-                user_face_distance = face_recognition.face_distance(lists,encode_face)
-                # print(user_face_distance)
-                result.append(face_recognition.compare_faces(lists,encode_face))
+        # for encode_face,face_location in zip(encode_user_face,user_face):
+        #     for lists in encodeList:
+        #         user_matches = face_recognition.compare_faces(lists,encode_face)
+        #         user_face_distance = face_recognition.face_distance(lists,encode_face)
+        #         # print(user_face_distance)
+        #         result.append(face_recognition.compare_faces(lists,encode_face))
 
-        for idx, success in enumerate(result):
-            if True in success:
-                paths.append(myList[idx])
+        # for idx, success in enumerate(result):
+        #     if True in success:
+        #         paths.append(myList[idx])
         # for seeing result of above zip function
         # print(result)
             # if result:
