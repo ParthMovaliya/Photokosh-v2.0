@@ -66,40 +66,14 @@ def addAllImages():
     ans = jsonify({"Saved Images": saved_filenames})
     return ans
 
-# def addAllImages():
-#     print(request.data)
-#     files = request.files  # Retrieve uploaded files
-#     for filename, image in image_files.items():
-#         image_data = image.read()  # Read the binary image data
-#         # image_data = base64.b64decode(base64_image.split(",")[1])
-#         base64_image = base64.b64encode(image_data.split(",")[1]).decode('utf-8')  # Convert to base64 string
-#         save_path = os.path.join(IMAGES_PATH, filename)
-#         with open(save_path, 'wb') as f:
-#             f.write(image_data)
-#     # base64_data = request.form.getlist("base64")
-#     # saved_filenames = []
-#     # for i, file in enumerate(files):
-#     #     print(i)
-#     #     filename = file.filename
-#     #     base64_image = base64_data[i]
-#     #     save_path = os.path.join(IMAGES_PATH, filename)
-#     #     image_data = base64.b64decode(base64_image.split(",")[1])
-#     #     with open(save_path, 'wb') as f:
-#     #         f.write(image_data)
-#     #     # saved_filenames.append(filename)
-
-#     ans = jsonify({"Saved Images": "saved_filenames"})
-#     return ans
-
 #route that take user image and comapre with all images and return detected images name for now
 @app.route('/capture', methods=['POST'])
 def findAllImages():
-    print("------------------------------------------------");
     paths = []
     result = []
     try:
         # Get the Base64 encoded image from the request
-        image_data = request.data
+        image_data = request.get_json()
         print(image_data)
         # return base64_image
         # base64_image = request.form.get("image")
@@ -140,7 +114,6 @@ def findAllImages():
             #     paths.append(PATH)
         ans = jsonify({"Images":paths})
         print(ans)
-        print("---------------------------------------------------")
         return ans
 
     except Exception as e:

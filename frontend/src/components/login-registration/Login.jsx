@@ -63,7 +63,7 @@ const Login = () => {
                 </div>
                 <div className="flex justify-center items-center gap-4 mt-2">
                     <p>New to Photokosh?</p>
-                    <button className='text-blue-600 underline' onClick={() => navigate("/register")}>Create an account.</button>
+                    <button className='text-blue-600 underline' onClick={() => { (status === STATUSES.ERROR && dispatch(setStatus(STATUSES.IDLE))); navigate("/registration") }}>Create an account.</button>
                 </div>
             </div>
             {

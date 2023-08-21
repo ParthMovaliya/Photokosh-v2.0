@@ -15,11 +15,20 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         crop: "scale"
     });
     const { name, email, password, user_image } = req.body;
-    const new_user_image = user_image.split(",");
-    const imageBuffer = Buffer.from(new_user_image[1], 'base64');
-    axios.post("http://127.0.0.1:5000/capture", { imageBuffer })
-        .then(response => console.log(response.data))
-        .catch(err => console.log(err))
+    const new_user_image = user_image.split(",")[1];
+    console.log(new_user_image)
+    const new_image = {
+        user: new_user_image
+    }
+    // console.log(new_image);
+    try {
+        const response = await axios.post("http://127.0.0.1:5000/capture", { new_image })
+        console.log(response.data)
+    } catch (error) {
+        console.log(error.response)
+    }
+    // .then(response => console.log(response.data))
+    // .catch(err => console.log(err))
     const user = await User.create({
         name,
         email,

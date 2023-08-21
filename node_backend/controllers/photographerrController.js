@@ -3,6 +3,7 @@ const Photographer = require("../models/photographerModel");
 const User = require("../models/userModel");
 const axios = require("axios");
 
+//register user as photographer
 exports.registerPhotographer = catchAsyncError(async (req, res, next) => {
     const { name, email, shopName, shopAddress, mobileNumber } = req.body;
     const user = await Photographer.create({
@@ -18,6 +19,7 @@ exports.registerPhotographer = catchAsyncError(async (req, res, next) => {
     });
 });
 
+//ger all photographer --Admin
 exports.getAllPhotographer = catchAsyncError(async (req, res, next) => {
     const vUsers = await Photographer.find({ isAuthenticated: false });
     res.status(200).json({
@@ -26,6 +28,7 @@ exports.getAllPhotographer = catchAsyncError(async (req, res, next) => {
     });
 });
 
+//verify photographer by --Admin
 exports.verifyPhotographer = catchAsyncError(async (req, res, next) => {
     const { name, email } = req.body;
     await Photographer.updateOne({ name, email }, { $set: { isAuthenticated: true } });
@@ -33,6 +36,7 @@ exports.verifyPhotographer = catchAsyncError(async (req, res, next) => {
     // console.log(updateUser)
 });
 
+//upload image by photographer
 exports.uploadImagesByPhotographer = catchAsyncError(async (req, res, next) => {
     const images = req.body;
 
