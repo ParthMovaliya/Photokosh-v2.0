@@ -6,25 +6,20 @@ import base64
 import numpy as np
 import face_recognition
 
-from utils.uploadPhoto import addAllImages
-from utils.findEncodings import findEncodingsFunction
-
 app = Flask(__name__)
 CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 IMAGES_PATH = 'F:\\7th_3\\flask_backend\\photos\\'
-PATH = "parth"
 images = []
 path_images = []
 classNames = []
 number_encodingList = []
-# cv2.resize()
-myList = os.listdir(PATH)
+myList = os.listdir(IMAGES_PATH)
 
 # add images in images
 for cl in myList:
-    currImg = cv2.imread(f'{PATH}/{cl}')
+    currImg = cv2.imread(f'{IMAGES_PATH}/{cl}')
     images.append(currImg)
     classNames.append(os.path.splitext(cl)[0])
 
