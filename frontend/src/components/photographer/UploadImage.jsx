@@ -40,9 +40,9 @@ const UploadImage = () => {
                     try {
                         const response = await axios.post('/api/v1/add_images', imageFiles); // Send only FormData 
                         if (response.data.success) {
-                            alert.show(response.data.message);
+                            alert.success(response.data.message);
                         } else {
-                            alert.show(response.data.message);
+                            alert.error(response.data.message);
                         }
 
                     } catch (error) {

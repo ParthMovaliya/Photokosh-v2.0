@@ -16,15 +16,19 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     const { data: userData, status } = useSelector((state) => state.user);
     const loginUserDetails = useRef(null);
-    const [avatarPreview, setAvatarPreview] = useState("");
+    // const [avatarPreview, setAvatarPreview] = useState("");
     const [avatar, setAvatar] = useState("");
 
     useEffect(() => {
-        if (userData.isAuthenticated || (status === STATUSES.LOADING && userData.isAuthenticated)) {
+        if (userData.isAuthenticated) {
             navigate("/");
         }
-        if (status !== STATUSES.IDLE)
-            dispatch(setStatus(STATUSES.IDLE));
+        if (status === STATUSES.ERROR) {
+            const allerror = userData.message.split(',');
+            allerror.map(err => (
+                alert.show(err)
+            ))
+        }
     }, [userData, status]);
 
     const captureUser = async () => {
@@ -32,17 +36,17 @@ const Register = () => {
         setCapturedImage(imageSrc);
     };
 
-    const registerDataChange = (e) => {
-        if (e.target.name === "avatar") {
-            const reader = new FileReader();
+    // const registerDataChange = (e) => {
+    //     if (e.target.name === "avatar") {
+    //         const reader = new FileReader();
 
-            reader.onload = () => {
-                setAvatarPreview(reader.result);
-                setAvatar(reader.result);
-            };
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    };
+    //         reader.onload = () => {
+    //             setAvatarPreview(reader.result);
+    //             setAvatar(reader.result);
+    //         };
+    //         reader.readAsDataURL(e.target.files[0]);
+    //     }
+    // };
 
     const registerUserFunction = (e) => {
         e.preventDefault();
@@ -53,7 +57,7 @@ const Register = () => {
         }
     }
 
-    if (status === STATUSES.LOADINGS) {
+    if (status === STATUSES.LOADING) {
         return (
             <Loading />
         )
@@ -84,16 +88,6 @@ const Register = () => {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <img src={avatarPreview} alt="Avatar Preview" />
-                        <input
-                            type="file"
-                            name="avatar"
-                            accept="image/*"
-                            onChange={registerDataChange}
-                        />
-                    </div>
-
                     <div className='flex justify-center items-center gap-4 flex-col '>
                         {capturedImage ? (
                             <div className=''>
@@ -142,7 +136,7 @@ const Register = () => {
                 </div>
                 <div className="flex justify-center items-center gap-4 mt-2">
                     <p>Already using  Photokosh?</p>
-                    <button className='text-blue-600 underline' onClick={() => navigate("/login")}>Log in.</button>
+                    <button className='text-blue-600 underline' onClick={() => { (status === STATUSES.ERROR && dispatch(setStatus(STATUSES.IDLE))); navigate("/login") }}>Log in.</button>
                 </div>
             </div>
         </div>

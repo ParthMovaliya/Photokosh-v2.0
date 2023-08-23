@@ -8,7 +8,7 @@ import AlertTemplate from 'react-alert-template-basic'
 const options = {
   // you can also just use 'bottom center'
   position: positions.BOTTOM_CENTER,
-  type: types.ERROR,
+  // type: types.ERROR,
   timeout: 5000,
   offset: '10px',
   // you can also just use 'scale'

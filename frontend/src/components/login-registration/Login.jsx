@@ -54,7 +54,7 @@ const Login = () => {
                         </div>
                     </div>
                     <button type="submit" className='mt-2 tracking-wider bg-blue-600 px-2 py-3 text-lg text-white rounded-md'>Log in</button>
-                    <p className='flex justify-end text-blue-600 underline cursor-pointer' onClick={() => navigate("/password/forgot")}>forgot password?</p>
+                    <p className='flex justify-end text-blue-600 underline cursor-pointer' onClick={() => { (status === STATUSES.ERROR && dispatch(setStatus(STATUSES.IDLE))); navigate("/password/forgot") }}>forgot password?</p>
                 </form>
                 <div className="flex items-center">
                     <hr className='flex flex-grow border border-t-neutral-300' />
@@ -63,7 +63,7 @@ const Login = () => {
                 </div>
                 <div className="flex justify-center items-center gap-4 mt-2">
                     <p>New to Photokosh?</p>
-                    <button className='text-blue-600 underline' onClick={() => navigate("/register")}>Create an account.</button>
+                    <button className='text-blue-600 underline' onClick={() => { (status === STATUSES.ERROR && dispatch(setStatus(STATUSES.IDLE))); navigate("/registration") }}>Create an account.</button>
                 </div>
             </div>
             {

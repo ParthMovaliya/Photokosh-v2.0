@@ -1,20 +1,27 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { STATUSES, resetUserPassword } from '../../store/userSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import PopUp from '../../utils/PopUp';
 import Loading from '../../utils/Loading';
+import { useAlert } from 'react-alert';
 
 const ForgetPassword = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { data: userData, status } = useSelector((state) => state.user);
     const loginUserDetails = useRef(null);
+    const alert = useAlert();
 
     const resetPasswordFunction = (e) => {
         e.preventDefault();
         dispatch(resetUserPassword(loginUserDetails.current.email.value));
     }
+
+    useEffect(() => {
+        if (status === STATUSES.ERROR) {
+            alert.show(userData.message)
+        }
+    }, [userData, status])
 
     if (status === STATUSES.LOADING) {
         return (
@@ -46,9 +53,6 @@ const ForgetPassword = () => {
                     <button className='text-blue-600 underline' onClick={() => navigate("/login")}>Log in.</button>
                 </div>
             </div>
-            {
-                userData.message.length > 0 && <PopUp message={userData.message} success={true} />
-            }
         </div>
     )
 }
