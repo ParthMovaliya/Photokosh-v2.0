@@ -153,9 +153,9 @@ def findAllImages():
             #     image_name = images[]
             #     success_image = os.path.join(PATH, image_name)
             #     paths.append(PATH)
-        ans = jsonify({"Images":answer})
-        print("Ans - ",ans)
-        return ans
+        # ans = jsonify({"Images":answer})
+        print("Ans - ",answer)
+        return answer
 
     except Exception as e:
         print("-----------------Error-------------------------------")

@@ -111,8 +111,10 @@ export function registerUser(name, email, password, avatar, user_image) {
                     email: response.data.user.email,
                     role: response.data.user.role,
                     image: response.data.user.avatar.url,
+                    images: response.data.user.images
                 }
             }
+            console.log(requireData);
             dispatch(loginUser(requireData));
             dispatch(setStatus(STATUSES.IDLE));
         } catch (error) {

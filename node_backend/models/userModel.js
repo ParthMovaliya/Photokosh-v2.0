@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema({
         select: false
     },
     images: {
-        type: Object,
-        default: {}
+        type: Array,
+        default: []
     },
     user_image: {
         type: String,

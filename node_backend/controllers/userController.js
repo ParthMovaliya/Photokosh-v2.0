@@ -16,9 +16,11 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     });
     const { name, email, password, user_image } = req.body;
     const new_user_image = user_image.split(",")[1];
+    // const images = []
     try {
         const response = await axios.post("http://127.0.0.1:5000/capture", { new_user_image })
         console.log('Image-> ',response.data)
+        images = response.data
     } catch (error) {
         console.log(error.response)
     }
@@ -28,6 +30,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         name,
         email,
         password,
+        images,
         user_image,
         avatar: {
             public_id: myCloud.public_id,
