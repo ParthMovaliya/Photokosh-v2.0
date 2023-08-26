@@ -43,6 +43,7 @@ export function getUserDetails(email, password) {
                     email: response.data.user.email,
                     role: response.data.user.role,
                     image: response.data.user.avatar.url,
+                    images: response.data.user.images
                 }
             }
             dispatch(loginUser(requireData));
@@ -68,6 +69,7 @@ export function defaultUserLogin() {
                     email: response.data.user.email,
                     role: response.data.user.role,
                     image: response.data.user.avatar.url,
+                    images: response.data.user.images
                 }
             }
             dispatch(loginUser(requireData));
@@ -114,7 +116,7 @@ export function registerUser(name, email, password, avatar, user_image) {
                     images: response.data.user.images
                 }
             }
-            console.log(requireData);
+            // console.log(requireData);
             dispatch(loginUser(requireData));
             dispatch(setStatus(STATUSES.IDLE));
         } catch (error) {
