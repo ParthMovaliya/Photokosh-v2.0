@@ -18,7 +18,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     const new_user_image = user_image.split(",")[1];
     try {
         const response = await axios.post("http://127.0.0.1:5000/capture", { new_user_image })
-        console.log(response.data)
+        console.log('Image-> ',response.data)
     } catch (error) {
         console.log(error.response)
     }

@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-IMAGES_PATH = 'F:\\7th_3\\flask_backend\\photos\\'
+IMAGES_PATH = 'D:\\College Work\\Sem-7\\Project\\Photokosh\\Photokosh-v2.0\\flask_backend\\photos\\'
 images = []
 path_images = []
 classNames = []
@@ -56,7 +56,12 @@ def addAllImages():
         with open(save_path, 'wb') as f:
             f.write(image_data)
 
+        nparr = np.frombuffer(image_data, np.uint8)
         # add image scan function here
+        img = cv2.cvtColor(nparr, cv2.COLOR_BGR2RGB)
+        face_locations = face_recognition.face_locations(img)
+        face_encodings = face_recognition.face_encodings(img, face_locations)
+        encodeList.append(face_encodings)
 
         saved_filenames.append(filename)
 
@@ -78,12 +83,48 @@ def findAllImages():
             save_path = os.path.join(IMAGES_PATH, 'user.jpg')
 
             # add user image scan here and also see below comment code from line 93 - 119
+            nparr = np.frombuffer(image_data, np.uint8)
+        
+            # Decode the NumPy array to an OpenCV image
+            image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            user_image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+            user_face = face_recognition.face_locations(user_image)
+            encode_user_face = face_recognition.face_encodings(user_image,user_face)
+            print("encode_user_face done")
+
+            # make zip of encode_user_face and user_face and then run other for loop which contain images encoding and compare with user image
+            for encode_face,face_location in zip(encode_user_face,user_face):
+                for lists in encodeList:
+                    user_matches = face_recognition.compare_faces(lists,encode_face)
+                    user_face_distance = face_recognition.face_distance(lists,encode_face)
+                    result.append(user_matches)
+            
+            answer = list()
+            for idx, success in enumerate(result):
+                if True in success:
+                    answer.append(myList[idx])
+            # for seeing result of above zip function
+            print("Result - ",result)
+            # if result:
+            #     image_name = images[]
+            #     success_image = os.path.join(image_name)
+            #     paths.append()
+            # if result:
+            #     # image_name = images[]
+            #     PATH = 'D:\\College Work\\Sem-7\\Project\\Photokosh\\Photokosh-v2.0\\flask_backend\\Saved_Images\\'
+            #     for item in range(len(result)):
+            #         if(True in result[item]):
+            #             print(files[item])
+            #             image_name = files[item]
+            #             with open(PATH, 'wb') as f:
+            #                 f.write(image_name)
+
+                # success_image = os.path.join(PATH, image_name)
+                # paths.append(PATH)
 
             # below code save image -- you can check
             # with open(save_path, 'wb') as f:
             #     f.write(image_data)
-        
-        print("Image save")
 
         # # Convert the binary data to a NumPy array
         # nparr = np.frombuffer(image_data, np.uint8)
@@ -112,12 +153,12 @@ def findAllImages():
             #     image_name = images[]
             #     success_image = os.path.join(PATH, image_name)
             #     paths.append(PATH)
-        ans = jsonify({"Images":paths})
-        print(ans)
+        ans = jsonify({"Images":answer})
+        print("Ans - ",ans)
         return ans
 
     except Exception as e:
-        print("------------------------------------------------")
+        print("-----------------Error-------------------------------")
         print(str(e))
         return f"Error: {str(e)}"
 
