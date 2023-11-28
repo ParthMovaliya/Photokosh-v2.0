@@ -10,7 +10,6 @@ app = Flask(__name__)
 CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 1024
 
-
 IMAGES_PATH = 'F:\\7th_3\\frontend\\src\\photos\\'
 images = []
 path_images = []
